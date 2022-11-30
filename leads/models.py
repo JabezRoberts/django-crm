@@ -34,3 +34,4 @@ class Agent(models.Model):
     #user = models.ForeignKey(User, on_delete=models.CASCADE) #ForiegnKey creates manay agents for one user. Use one to one field to fix this where one agent has one user
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # lead = models.ForeignKey("Lead", on_delete=models.CASCADE)-> every agent can only have one lead
+    
