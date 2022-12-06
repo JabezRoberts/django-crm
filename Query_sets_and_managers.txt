@@ -1,0 +1,76 @@
+$ python manage.py shell
+Python 3.10.7 (tags/v3.10.7:6cc6b13, Sep  5 2022, 14:08:36) [MSC v.1933 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from leads.models import Lead
+>>> Lead.objects.all()
+<QuerySet []>
+>>> exit()
+
+$ python manage.py createsuperuser
+Username: admin
+Email address: jabez.roberts137@gmail.com
+Password: 123456
+Password (again): 123456
+This password is too short. It must contain at least 8 characters.
+This password is too common.
+This password is entirely numeric.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+(env) 
+
+
+$ python manage.py shell
+Python 3.10.7 (tags/v3.10.7:6cc6b13, Sep  5 2022, 14:08:36) [MSC v.1933 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from django.contrib.auth import get_user_model
+>>> User = get_user_model()
+>>> USer.objects.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'USer' is not defined
+>>> User.objects.all()
+<QuerySet [<User: admin>]>
+>>> from leads.models import Agent
+>>> admin_user = User.objects.get(username="admin")
+>>> admin_user
+<User: admin>
+>>> agent = Agent.objects.create(user=admin_user) 
+>>> agent
+<Agent: Agent object (1)>
+>>>
+
+
+$ python manage.py shell
+Python 3.10.7 (tags/v3.10.7:6cc6b13, Sep  5 2022, 14:08:36) [MSC v.1933 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from leads.models import Agent
+>>> Agent.objects.all()
+<QuerySet [<Agent: jabez.roberts137@gmail.com>]>
+>>> from leads.models import Lead
+>>> admin_agent = Agent.objects.get(user__email="jabez.roberts137@gmail.com")
+>>> admin_agent
+<Agent: jabez.roberts137@gmail.com>
+>>>  Lead.objects.create(first_name="Joe", last_name="Shmoe", age=35, agent=admin_agent)
+  File "<console>", line 1
+    Lead.objects.create(first_name="Joe", last_name="Shmoe", age=35, agent=admin_agent)
+IndentationError: unexpected indent
+>>> Lead.objects.create(first_name="Joe", last_name="Shmoe", age=35, agent=admin_agent)  
+<Lead: Lead object (1)>
+>>> exit()
+(env) 
+
+
+$ python manage.py shell
+Python 3.10.7 (tags/v3.10.7:6cc6b13, Sep  5 2022, 14:08:36) [MSC v.1933 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from leads.model import Lead
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+ModuleNotFoundError: No module named 'leads.model'
+>>> from leads.models import Lead
+>>> Lead.objects.all()
+<QuerySet [<Lead: Joe Shmoe>]>

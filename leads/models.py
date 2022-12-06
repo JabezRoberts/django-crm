@@ -27,6 +27,9 @@ class Lead(models.Model):
     # profile_picture = models.ImageField(blank=True, null=True) # blank is empty string, null is no value. so we can save lead without profile picture
     # special_files = models.FileField(blank=True, null=True)
     
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+    
 
 
 
@@ -34,4 +37,9 @@ class Agent(models.Model):
     #user = models.ForeignKey(User, on_delete=models.CASCADE) #ForiegnKey creates manay agents for one user. Use one to one field to fix this where one agent has one user
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # lead = models.ForeignKey("Lead", on_delete=models.CASCADE)-> every agent can only have one lead
+    
+    
+    def __str__(self):
+        return self.user.email
+    
     
